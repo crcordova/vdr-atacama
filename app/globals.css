@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/*
+ * VDR Atacama design tokens.
+ * Source of truth for color, typography, spacing, and motion.
+ *
+ * Strategy: Tailwind v4 @theme registers tokens that auto-generate utilities
+ * (bg-sky-900, text-cream, text-display, etc.). Raw CSS variables for spacing,
+ * motion, and focus live in :root and are consumed in component stylesheets.
+ *
+ * Palette is locked by PROJECT.md section 4. Do not add competing accents.
+ */
+
+/* ============================================================
+ * COLOR TOKENS - registered with Tailwind via @theme
+ * ============================================================ */
+
+@theme {
+  /* Brand palette: sky (background family) */
+  --color-sky-900: #0a1330;     /* background principal */
+  --color-sky-700: #13234d;     /* cards / layers / elevated surfaces */
+  --color-sky-300: #7b92c9;     /* muted text / hairlines / borders */
+
+  /* Brand palette: cream (text family) */
+  --color-cream: #f5efe0;       /* primary text on dark surfaces */
+
+  /* Brand palette: desert (accent family - single accent lock) */
+  --color-desert-700: #a0411a;  /* dark accent, secondary buttons */
+  --color-desert-500: #c25a2e;  /* hover, primary CTA fill */
+  --color-desert-300: #e8915e;  /* glow, halo, focus ring */
+}
+
+/* ============================================================
+ * TYPOGRAPHY TOKENS - Inter, locked scale from PROJECT.md section 4
+ * ============================================================ */
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+
+  /* display 64/72 */
+  --text-display: 4rem;
+  --text-display--line-height: 4.5rem;
+  --text-display--letter-spacing: -0.02em;
+
+  /* h1 48/56 */
+  --text-h1: 3rem;
+  --text-h1--line-height: 3.5rem;
+  --text-h1--letter-spacing: -0.015em;
+
+  /* h2 32/40 */
+  --text-h2: 2rem;
+  --text-h2--line-height: 2.5rem;
+  --text-h2--letter-spacing: -0.01em;
+
+  /* h3 24/32 */
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 2rem;
+
+  /* body 16/24 */
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+
+  /* small 14/20 */
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.25rem;
+}
+
+/* ============================================================
+ * LAYOUT, SPACING, MOTION TOKENS - raw CSS vars (no Tailwind utility)
+ * ============================================================ */
+
+:root {
+  /* Container widths */
+  --container-content: 1200px;
+  --container-narrow: 720px;
+
+  /* Section vertical rhythm */
+  --spacing-section-y: 5rem;     /* mobile default */
+  --spacing-section-y-md: 6rem;  /* tablet */
+  --spacing-section-y-lg: 8rem;  /* desktop */
+
+  /* Gutter (horizontal padding inside containers) */
+  --spacing-gutter: 1.25rem;
+  --spacing-gutter-md: 2rem;
+
+  /* Motion timing */
+  --motion-fast: 150ms;
+  --motion-base: 240ms;
+  --motion-slow: 360ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Focus ring (used in component CSS, not Tailwind) */
+  --focus-ring-color: var(--color-desert-300);
+  --focus-ring-offset: 2px;
+  --focus-ring-width: 2px;
+}
+
+/* ============================================================
+ * BASE STYLES
+ * ============================================================ */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-sky-900);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background-color: var(--color-desert-500);
+    color: var(--color-cream);
+  }
+
+  /* Visible keyboard focus: desert-300 against sky-900 (contrast ~7.5:1) */
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    border-radius: 2px;
+  }
+}
+
+/* ============================================================
+ * REDUCED MOTION - mandatory per PROJECT.md section 4
+ * ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
