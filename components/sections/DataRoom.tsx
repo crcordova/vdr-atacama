@@ -27,7 +27,7 @@ export function DataRoom() {
     <section
       id="data-room"
       aria-labelledby="data-room-heading"
-      className="bg-sky-900 py-20 md:py-28"
+      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-[72px]"
     >
       <Container>
         <header className="max-w-[720px]">

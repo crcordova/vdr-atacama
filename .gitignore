@@ -33,6 +33,10 @@ pnpm-debug.log*
 # opencode / agent runtime (should never be here, but defensive)
 .opencode/
 .agents/
+.vdr-design/
+
+# design deliverables generated for code agent
+.vdr-design/
 
 # local env files
 .env*.local
@@ -44,3 +48,5 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+skills-lock.json

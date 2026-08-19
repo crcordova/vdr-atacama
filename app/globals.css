@@ -24,10 +24,10 @@
   /* Brand palette: cream (text family) */
   --color-cream: #f5efe0;       /* primary text on dark surfaces */
 
-  /* Brand palette: desert (accent family - single accent lock) */
-  --color-desert-700: #a0411a;  /* dark accent, secondary buttons */
-  --color-desert-500: #c25a2e;  /* hover, primary CTA fill */
-  --color-desert-300: #e8915e;  /* glow, halo, focus ring */
+  /* Brand palette: gold (accent family - single accent lock) */
+  --color-gold-700: #7a5c10;  /* dark gold, primary buttons */
+  --color-gold-500: #9a7b16;  /* hover, primary CTA fill */
+  --color-gold-300: #c5a028;  /* glow, halo, focus ring */
 }
 
 /* ============================================================
@@ -92,7 +92,7 @@
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Focus ring (used in component CSS, not Tailwind) */
-  --focus-ring-color: var(--color-desert-300);
+  --focus-ring-color: var(--color-gold-300);
   --focus-ring-offset: 2px;
   --focus-ring-width: 2px;
 }
@@ -107,6 +107,14 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    scroll-padding-top: 4rem; /* mobile header height */
+    color-scheme: dark;
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: 4.5rem; /* desktop header height */
+    }
   }
 
   body {
@@ -119,15 +127,34 @@
   }
 
   ::selection {
-    background-color: var(--color-desert-500);
+    background-color: var(--color-gold-500);
     color: var(--color-cream);
   }
 
-  /* Visible keyboard focus: desert-300 against sky-900 (contrast ~7.5:1) */
+  /* Visible keyboard focus: gold-300 against sky-900 (contrast ~7.4:1) */
   :focus-visible {
     outline: var(--focus-ring-width) solid var(--focus-ring-color);
     outline-offset: var(--focus-ring-offset);
     border-radius: 2px;
+  }
+}
+
+/* ============================================================
+ * UTILITIES
+ * ============================================================ */
+
+@layer utilities {
+  /* Subtle gradient divider between sections. */
+  .section-divider {
+    height: 1px;
+    width: 100%;
+    border: none;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(197, 160, 40, 0.2) 50%,
+      transparent 100%
+    );
   }
 }
 

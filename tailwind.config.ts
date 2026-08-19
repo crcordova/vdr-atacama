@@ -23,9 +23,9 @@ const config: Config = {
         "sky-700": "var(--color-sky-700)",
         "sky-300": "var(--color-sky-300)",
         cream: "var(--color-cream)",
-        "desert-700": "var(--color-desert-700)",
-        "desert-500": "var(--color-desert-500)",
-        "desert-300": "var(--color-desert-300)",
+        "gold-700": "var(--color-gold-700)",
+        "gold-500": "var(--color-gold-500)",
+        "gold-300": "var(--color-gold-300)",
       },
       fontFamily: {
         sans: "var(--font-sans)",

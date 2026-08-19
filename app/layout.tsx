@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { isAuthenticated } from "@/lib/auth";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,15 +26,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const authed = await isAuthenticated();
+
   return (
     <html lang="es-CL" className={inter.variable}>
       <body className="flex min-h-[100dvh] flex-col bg-sky-900 font-sans text-cream antialiased">
-        <Header />
+        <Header authed={authed} />
         <main id="main" className="flex-1">
           {children}
         </main>

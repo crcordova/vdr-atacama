@@ -28,7 +28,7 @@ export function VideoSection() {
     <section
       id="video"
       aria-labelledby="video-heading"
-      className="bg-sky-900 py-20 md:py-28"
+      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-[72px]"
     >
       <Container size="narrow">
         <h2
@@ -61,6 +61,7 @@ export function VideoSection() {
           </div>
         )}
       </Container>
+      <hr className="section-divider" />
     </section>
   );
 }

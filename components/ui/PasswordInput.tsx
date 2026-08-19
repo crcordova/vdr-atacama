@@ -37,10 +37,10 @@ export function PasswordInput({
         autoComplete={autoComplete ?? "current-password"}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedByValue}
-        className="w-full bg-sky-700 text-cream placeholder:text-sky-300/60 border border-sky-300/20 rounded-md px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-desert-300 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-900 aria-[invalid=true]:border-desert-500"
+        className="w-full bg-sky-700 text-cream placeholder:text-sky-300/60 border border-sky-300/20 rounded-md px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-900 aria-[invalid=true]:border-gold-500"
       />
       {error && (
-        <p id={`${id}-error`} role="alert" className="text-sm text-desert-300">
+        <p id={`${id}-error`} role="alert" className="text-sm text-gold-300">
           {error}
         </p>
       )}

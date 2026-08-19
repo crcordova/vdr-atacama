@@ -51,8 +51,9 @@ export function AccessGate() {
     <section
       id="acceso"
       aria-labelledby="acceso-heading"
-      className="bg-sky-900 py-20 md:py-28"
+      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-[72px]"
     >
+      <hr className="section-divider" />
       <Container size="narrow">
         <div>
           <h2 id="acceso-heading" className="text-h2 text-cream">
@@ -85,7 +86,7 @@ export function AccessGate() {
               aria-live="polite"
               className={`mt-3 min-h-5 text-sm ${
                 state.status === "error"
-                  ? "text-desert-300"
+                  ? "text-gold-300"
                   : "text-cream/75"
               }`}
             >

@@ -9,7 +9,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero />
+      {!authed && <Hero />}
       <VideoSection />
       {authed ? <DataRoom /> : <AccessGate />}
     </>

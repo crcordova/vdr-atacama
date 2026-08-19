@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { Container } from "../ui/Container";
+import { Button } from "../ui/Button";
 
 /**
  * Hero - primera seccion de la pagina.
@@ -9,13 +11,11 @@ import { Container } from "../ui/Container";
  *   3. Subtext (parrafo, body, 14 palabras).
  *   4. CTA unico, anclado a la seccion de acceso.
  *
- * Imagen: decorativa (alt="" + aria-hidden). Carga prioritaria alta (LCP).
- * Se usa <img> en lugar de next/image para no introducir optimizacion
- * fuera de alcance de este slice; cuando se quiera priorizar LCP o
- * generacion responsive, migrar a next/image con priority + fill.
+ * Imagen: decorativa (alt="" + aria-hidden). Se usa next/image con fill y
+ * priority para reducir LCP y reservar espacio, evitando CLS.
  *
- * El CTA es un <a> estilizado como boton primario. Sera reemplazado por
- * <Button variant="primary"> en slice 4.2.
+ * El CTA usa el componente <Button as="a" variant="primary"> para mantener
+ * la semantica de ancla interna y reutilizar los estilos centralizados.
  */
 
 export function Hero() {
@@ -23,16 +23,16 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative isolate flex min-h-[100dvh] items-center overflow-hidden bg-sky-900 pt-24 pb-16 md:pb-24"
+      className="relative isolate flex min-h-[100dvh] items-center overflow-hidden bg-sky-900 pt-24 pb-16 md:pb-24 scroll-mt-16 lg:scroll-mt-[72px]"
     >
-      <img
+      <Image
         src="/background.png"
         alt=""
+        fill
+        priority
+        sizes="100vw"
         aria-hidden="true"
         className="absolute inset-0 z-0 h-full w-full object-cover"
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
       />
       <div
         aria-hidden="true"
@@ -57,13 +57,14 @@ export function Hero() {
             tecnica, legal y financiera, bajo acuerdo de confidencialidad.
           </p>
           <div className="mt-8 md:mt-10">
-            {/* Replace with <Button variant="primary"> in slice 4.2 */}
-            <a
+            <Button
+              as="a"
               href="#acceso"
-              className="inline-flex items-center justify-center rounded-md bg-desert-700 px-6 py-3 font-medium text-cream transition-colors hover:bg-desert-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-desert-300 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-900"
+              variant="primary"
+              className="w-full sm:w-auto"
             >
               Acceder al Data Room
-            </a>
+            </Button>
           </div>
         </div>
       </Container>
