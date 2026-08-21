@@ -23,7 +23,7 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative isolate flex min-h-[100dvh] items-center overflow-hidden bg-sky-900 pt-24 pb-16 md:pb-24 scroll-mt-16 lg:scroll-mt-[72px]"
+      className="relative isolate flex min-h-dvh items-center overflow-hidden bg-sky-900 pt-24 pb-16 md:pb-24 scroll-mt-16 lg:scroll-mt-[72px]"
     >
       <Image
         src="/background.png"
@@ -36,7 +36,7 @@ export function Hero() {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-10 bg-gradient-to-b from-sky-900/85 via-sky-900/60 to-sky-900/30"
+        className="absolute inset-0 z-10 bg-linear-to-b from-sky-900/85 via-sky-900/60 to-sky-900/30"
       />
       <Container className="relative z-20">
         <div className="max-w-[65ch]">

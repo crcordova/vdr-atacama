@@ -28,7 +28,7 @@ export function VideoSection() {
     <section
       id="video"
       aria-labelledby="video-heading"
-      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-[72px]"
+      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-18"
     >
       <Container size="narrow">
         <h2

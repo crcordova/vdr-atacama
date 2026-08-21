@@ -105,7 +105,7 @@ export function AccessGate() {
     <section
       id="acceso"
       aria-labelledby="acceso-heading"
-      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-[72px]"
+      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-18"
     >
       <hr className="section-divider" />
       <Container size="narrow">

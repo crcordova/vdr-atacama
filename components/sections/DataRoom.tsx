@@ -27,10 +27,10 @@ export function DataRoom() {
     <section
       id="data-room"
       aria-labelledby="data-room-heading"
-      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-[72px]"
+      className="bg-sky-900 py-20 md:py-28 scroll-mt-16 lg:scroll-mt-18"
     >
       <Container>
-        <header className="max-w-[720px]">
+        <header className="max-w-180">
           <h2
             id="data-room-heading"
             className="text-h2 text-cream leading-tight"
