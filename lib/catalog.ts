@@ -63,20 +63,36 @@ export const CATALOG: DocumentEntry[] = [
     filename: "Investment_Memorandum.pdf",
   },
   {
-    id: "modelo-financiero",
-    title: "Modelo Financiero",
-    description: "Proyecciones y modelo financiero.",
+    id: "fichas-tecnicas-spvs",
+    title: "Fichas Técnicas SPVs",
+    description: "Fichas técnicas de los vehículos (SPVs).",
     category: "inversores",
-    envKey: "DOC_KEY_MODELO_FINANCIERO",
-    filename: "Modelo_Financiero.pdf",
+    envKey: "DOC_KEY_FICHAS_TECNICAS_SPVS",
+    filename: "Fichas-Tecnicas-SPVs.pdf",
   },
   {
-    id: "infraestructura-critica",
-    title: "Infraestructura Crítica",
-    description: "Detalle de infraestructura crítica.",
+    id: "equipo-gobernanza",
+    title: "Equipo Gobernanza",
+    description: "Equipo y estructura de gobernanza.",
     category: "inversores",
-    envKey: "DOC_KEY_INFRAESTRUCTURA_CRITICA",
-    filename: "Infraestructura_Critica.pdf",
+    envKey: "DOC_KEY_EQUIPO_GOBERNANZA",
+    filename: "Equipo-Gobernanza.pdf",
+  },
+  {
+    id: "tabla-financiera-consolidada",
+    title: "Tabla Financiera Consolidada",
+    description: "Tabla financiera consolidada.",
+    category: "inversores",
+    envKey: "DOC_KEY_TABLA_FINANCIERA_CONSOLIDADA",
+    filename: "Tabla-Financiera-Consolidada.pdf",
+  },
+  {
+    id: "anexo-legal",
+    title: "Anexo Legal",
+    description: "Anexo legal del proyecto.",
+    category: "inversores",
+    envKey: "DOC_KEY_ANEXO_LEGAL",
+    filename: "Anexo-Legal.pdf",
   },
 ];
 
@@ -90,6 +106,6 @@ export const CATEGORY_LABELS: Record<DocumentCategory, string> = {
 };
 
 export const CATEGORY_ORDER: DocumentCategory[] = [
-  "gestion-soberana",
   "inversores",
+  "gestion-soberana",
 ];

@@ -30,8 +30,10 @@ const envSchema = z.object({
   DOC_KEY_ANEXO_COMPROMISO_SOCIAL: z.string().min(1),
   DOC_KEY_CARPETA_LEGAL: z.string().min(1),
   DOC_KEY_INVESTMENT_MEMORANDUM: z.string().min(1),
-  DOC_KEY_MODELO_FINANCIERO: z.string().min(1),
-  DOC_KEY_INFRAESTRUCTURA_CRITICA: z.string().min(1),
+  DOC_KEY_FICHAS_TECNICAS_SPVS: z.string().min(1),
+  DOC_KEY_EQUIPO_GOBERNANZA: z.string().min(1),
+  DOC_KEY_TABLA_FINANCIERA_CONSOLIDADA: z.string().min(1),
+  DOC_KEY_ANEXO_LEGAL: z.string().min(1),
 
   // Public (exposed to the client bundle via NEXT_PUBLIC_ prefix)
   NEXT_PUBLIC_VIDEO_URL: z
