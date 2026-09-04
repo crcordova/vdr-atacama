@@ -5,11 +5,9 @@ import { Container } from "../ui/Container";
 /*
  * VideoSection - reproductor HTML5 nativo en 16:9 sobre fondo sky-900.
  *
- * Server Component: el elemento <video> se renderiza sin JavaScript del
- * cliente. La fuente es una URL firmada (presigned) de Cloudflare R2 con
- * validez de aproximadamente 4 horas, generada en tiempo de renderizado.
- * El navegador descarga el video directamente desde R2 en lugar de pasar
- * por el endpoint /api/video.
+ * Server Component: la URL firmada (presigned) de Cloudflare R2 se genera en
+ * tiempo de renderizado. El navegador descarga el video directamente desde R2
+ * en lugar de pasar por el endpoint /api/video.
  *
  * Si la generacion de la URL firmada falla (por ejemplo, credenciales
  * mal configuradas), se muestra un placeholder para evitar que la pagina
@@ -58,10 +56,10 @@ export async function VideoSection() {
             <video
               className="absolute inset-0 h-full w-full rounded-md border border-sky-300/20"
               src={videoUrl}
+              title={VIDEO_TITLE}
               controls
               preload="metadata"
               playsInline
-              title={VIDEO_TITLE}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center rounded-md border border-sky-300/20 bg-sky-950/50">

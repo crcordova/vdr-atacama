@@ -27,13 +27,13 @@ Single-page marketing/investor portal con data room privado.
    ```
 
 3. Completar `.env.local` con valores reales para:
-   - `DATAROOM_PASSWORD` (password compartido del data room)
-   - Credenciales de Cloudflare R2 (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
-     `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_ENDPOINT`)
-   - `VIDEO_R2_KEY` (opcional, default `Destino Atacama YT.mp4`): clave del
-      objeto R2 que contiene el video institucional de la home.
+    - `DATAROOM_PASSWORD` (password compartido del data room)
+    - Credenciales de Cloudflare R2 (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
+       `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_ENDPOINT`)
+    - `VIDEO_R2_KEY` (opcional, default `Destino Atacama YT.mp4`): clave del
+        objeto R2 que contiene el video institucional de la home.
 
-   El componente `VideoSection` de la home genera, en tiempo de renderizado,
+    El componente `VideoSection` de la home genera, en tiempo de renderizado,
    una URL firmada (presigned) de Cloudflare R2 con validez de aproximadamente
    4 horas, y el navegador descarga el MP4 directamente desde R2. `VIDEO_R2_KEY`
    determina qué objeto de R2 se utiliza. Si el bucket es público y se prefiere
@@ -83,7 +83,12 @@ app/
 - **Password compartido**: el acceso al data room está protegido por un único
   password (`DATAROOM_PASSWORD`) comparado con `crypto.timingSafeEqual`. Si el
   password se filtra, debe rotarse manualmente. Aceptado por alcance.
-- **Sin DB, sin multi-tenant, sin analytics** — el alcance es minimal.
+ - **Sin DB, sin multi-tenant** — el alcance es minimal. Se usa Vercel Web
+   Analytics básico (page views) vía `@vercel/analytics` en plan Hobby. Custom
+   events y análisis de comportamiento avanzado no están disponibles en Hobby
+   (requieren plan Pro u otra herramienta externa), por lo que no se trackean
+   reproducciones de video ni interacciones del data room. Ver
+   `docs/ANALYTICS_DECISION.md` para el contexto de la decisión.
 
 ## Documentación
 
