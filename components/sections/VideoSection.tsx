@@ -1,14 +1,19 @@
-import { Container } from "../ui/Container";
 import { env } from "@/lib/env";
+import { getSignedVideoUrl } from "@/lib/r2";
+import { Container } from "../ui/Container";
 
 /*
- * VideoSection - iframe YouTube responsivo en 16:9 sobre fondo sky-900.
+ * VideoSection - reproductor HTML5 nativo en 16:9 sobre fondo sky-900.
  *
- * Server Component: el iframe puede renderizarse sin JS del cliente y se
- * carga de forma perezosa con loading="lazy". El origen del video proviene
- * de NEXT_PUBLIC_VIDEO_URL (validado en lib/env.ts al boot). Si la
- * variable no estuviera presente, se usa un placeholder publico como red
- * de seguridad para que la seccion nunca quede vacia en desarrollo.
+ * Server Component: el elemento <video> se renderiza sin JavaScript del
+ * cliente. La fuente es una URL firmada (presigned) de Cloudflare R2 con
+ * validez de aproximadamente 4 horas, generada en tiempo de renderizado.
+ * El navegador descarga el video directamente desde R2 en lugar de pasar
+ * por el endpoint /api/video.
+ *
+ * Si la generacion de la URL firmada falla (por ejemplo, credenciales
+ * mal configuradas), se muestra un placeholder para evitar que la pagina
+ * falle por completo.
  *
  * Layout: Container size="narrow" (720px) para bloques de lectura.
  * Eyebrow omitido intencionalmente: Hero ya usa uno ("Portal de
@@ -18,11 +23,16 @@ import { env } from "@/lib/env";
  */
 
 const VIDEO_TITLE = "Video de presentación del proyecto VDR Atacama";
-const FALLBACK_VIDEO_URL = "https://www.youtube.com/embed/dQw4w9WgXcQ";
-const FALLBACK_PLACEHOLDER_TEXT = "Video pendiente de carga";
 
-export function VideoSection() {
-  const videoUrl = env.NEXT_PUBLIC_VIDEO_URL ?? FALLBACK_VIDEO_URL;
+export async function VideoSection() {
+  let videoUrl: string | null = null;
+
+  try {
+    videoUrl = await getSignedVideoUrl(env.VIDEO_R2_KEY);
+  } catch {
+    // Fall through to render the placeholder fallback UI.
+    videoUrl = null;
+  }
 
   return (
     <section
@@ -40,26 +50,27 @@ export function VideoSection() {
         <p className="mb-8 max-w-[65ch] text-body text-cream/85">
           Un resumen audiovisual del proyecto y su propuesta de valor.
         </p>
-        {videoUrl ? (
-          <div
-            className="relative w-full"
-            style={{ paddingTop: "56.25%" }}
-          >
-            <iframe
+        <div
+          className="relative w-full"
+          style={{ paddingTop: "56.25%" }}
+        >
+          {videoUrl ? (
+            <video
               className="absolute inset-0 h-full w-full rounded-md border border-sky-300/20"
               src={videoUrl}
-              loading="lazy"
+              controls
+              preload="metadata"
+              playsInline
               title={VIDEO_TITLE}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
             />
-          </div>
-        ) : (
-          <div className="flex aspect-video items-center justify-center rounded-md border border-sky-300/20 bg-sky-700 text-cream/60">
-            {FALLBACK_PLACEHOLDER_TEXT}
-          </div>
-        )}
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center rounded-md border border-sky-300/20 bg-sky-950/50">
+              <p className="text-body text-cream/70">
+                Video no disponible en este momento.
+              </p>
+            </div>
+          )}
+        </div>
       </Container>
       <hr className="section-divider" />
     </section>

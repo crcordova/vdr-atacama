@@ -1,4 +1,5 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "./env";
 
 // Singleton — re-use across requests to avoid per-call TCP/TLS handshake.
@@ -17,16 +18,21 @@ export function getR2Client(): S3Client {
   return _client;
 }
 
-export async function getObjectStream(key: string): Promise<{
+export async function getObjectStream(
+  key: string,
+  range?: string,
+): Promise<{
   body: ReadableStream<Uint8Array> | NodeJS.ReadableStream;
   contentType: string | undefined;
   contentLength: number | undefined;
+  contentRange: string | undefined;
 }> {
   const client = getR2Client();
   const res = await client.send(
     new GetObjectCommand({
       Bucket: env.R2_BUCKET,
       Key: key,
+      Range: range,
     }),
   );
   if (!res.Body) {
@@ -39,5 +45,32 @@ export async function getObjectStream(key: string): Promise<{
     body: res.Body as ReadableStream<Uint8Array> | NodeJS.ReadableStream,
     contentType: res.ContentType,
     contentLength: res.ContentLength,
+    contentRange: res.ContentRange,
   };
+}
+
+/**
+ * Generate a time-limited presigned URL for an R2 object.
+ *
+ * The browser can use this URL to download the object directly from
+ * Cloudflare R2 instead of streaming it through the Next.js app.
+ */
+export async function getSignedVideoUrl(
+  key: string,
+  expiresInSeconds?: number,
+): Promise<string> {
+  const client = getR2Client();
+  const command = new GetObjectCommand({
+    Bucket: env.R2_BUCKET,
+    Key: key,
+  });
+
+  try {
+    return await getSignedUrl(client, command, {
+      expiresIn: expiresInSeconds ?? 14400,
+    });
+  } catch (cause) {
+    // Keep the object key out of logs/error messages — keys are sensitive.
+    throw new Error("Failed to generate signed video URL", { cause });
+  }
 }

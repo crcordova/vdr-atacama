@@ -35,10 +35,8 @@ const envSchema = z.object({
   DOC_KEY_TABLA_FINANCIERA_CONSOLIDADA: z.string().min(1),
   DOC_KEY_ANEXO_LEGAL: z.string().min(1),
 
-  // Public (exposed to the client bundle via NEXT_PUBLIC_ prefix)
-  NEXT_PUBLIC_VIDEO_URL: z
-    .string()
-    .url("NEXT_PUBLIC_VIDEO_URL must be a valid URL"),
+  // Video (R2 object key for the home-page video)
+  VIDEO_R2_KEY: z.string().min(1).default("Destino Atacama YT.mp4"),
 });
 
 export type Env = z.infer<typeof envSchema>;

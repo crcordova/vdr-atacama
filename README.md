@@ -30,7 +30,16 @@ Single-page marketing/investor portal con data room privado.
    - `DATAROOM_PASSWORD` (password compartido del data room)
    - Credenciales de Cloudflare R2 (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
      `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_ENDPOINT`)
-   - `NEXT_PUBLIC_VIDEO_URL` con la URL `embed` del video institucional
+   - `VIDEO_R2_KEY` (opcional, default `Destino Atacama YT.mp4`): clave del
+      objeto R2 que contiene el video institucional de la home.
+
+   El componente `VideoSection` de la home genera, en tiempo de renderizado,
+   una URL firmada (presigned) de Cloudflare R2 con validez de aproximadamente
+   4 horas, y el navegador descarga el MP4 directamente desde R2. `VIDEO_R2_KEY`
+   determina qué objeto de R2 se utiliza. Si el bucket es público y se prefiere
+   servir el video desde una URL pública de la CDN, se puede usar
+   `NEXT_PUBLIC_VIDEO_URL` apuntando a la URL pública del objeto en vez del
+   mecanismo por defecto de URL firmada.
 
 4. Arrancar el servidor de desarrollo:
 
